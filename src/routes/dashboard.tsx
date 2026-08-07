@@ -27,14 +27,16 @@ function Dashboard() {
 
   return (
     <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28">
-      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        <div className="min-w-0">
-          <p className="text-xs font-semibold text-muted-foreground">{student.track} track</p>
-          <h1 className="truncate text-2xl font-bold text-foreground">
-            Welcome back, {student.name.split(" ")[0]}
-          </h1>
+      <header>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+          <p className="truncate text-xs font-semibold text-muted-foreground">
+            {student.track} track
+          </p>
+          <StreakBadge streak={student.streak} freezesLeft={student.freezesLeft} />
         </div>
-        <StreakBadge streak={student.streak} freezesLeft={student.freezesLeft} />
+        <h1 className="mt-1.5 text-[26px] leading-tight font-bold text-foreground">
+          Welcome back, {student.name.split(" ")[0]}
+        </h1>
       </header>
 
       {!student.profileComplete && (
