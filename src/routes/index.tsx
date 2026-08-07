@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Snowflake,
   ArrowRight,
+  X,
 } from "lucide-react";
 import { Logo } from "@/components/abtalks/Logo";
 import { testimonials, faqs } from "@/data/mockData";
@@ -51,6 +52,7 @@ const steps = [
 function Landing() {
   const [slide, setSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen pb-28">
@@ -63,6 +65,8 @@ function Landing() {
             </button>
             <button
               aria-label="Open menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(true)}
               className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-soft"
             >
               <Menu className="h-5 w-5 text-foreground" />
@@ -70,6 +74,51 @@ function Landing() {
           </div>
         </div>
       </header>
+
+      {menuOpen && (
+        <div className="fixed inset-0 z-50">
+          <button
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+            className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+          />
+          <div className="absolute inset-x-0 top-0 mx-auto max-w-md rounded-b-[28px] bg-card p-5 shadow-lift">
+            <div className="flex items-center justify-between">
+              <Logo />
+              <button
+                aria-label="Close menu"
+                onClick={() => setMenuOpen(false)}
+                className="grid h-11 w-11 place-items-center rounded-full bg-background"
+              >
+                <X className="h-5 w-5 text-foreground" />
+              </button>
+            </div>
+            <nav className="mt-4 grid gap-2">
+              {[
+                { to: "/", label: "Home", params: undefined },
+                { to: "/dashboard", label: "Dashboard", params: undefined },
+                { to: "/day/$day", label: "Today's Challenge", params: { day: "12" } },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  params={item.params as never}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex min-h-[52px] items-center rounded-full bg-background px-5 text-[15px] font-semibold text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="flex min-h-[52px] items-center justify-center rounded-full bg-primary px-5 font-display text-base font-bold text-primary-foreground"
+              >
+                Sign in
+              </button>
+            </nav>
+          </div>
+        </div>
+      )}
 
       <main className="mx-auto max-w-md px-5">
         {/* Hero */}
