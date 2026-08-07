@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { AppStateProvider } from "@/lib/app-state";
+import { BottomNav } from "@/components/abtalks/BottomNav";
+import { DebugChip } from "@/components/abtalks/DebugChip";
 
 function NotFoundComponent() {
   return (
@@ -132,8 +135,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AppStateProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <BottomNav />
+        <DebugChip />
+      </AppStateProvider>
     </QueryClientProvider>
   );
 }
