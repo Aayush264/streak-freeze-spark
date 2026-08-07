@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import { Logo } from "@/components/abtalks/Logo";
+import { ThemeToggle } from "@/components/abtalks/ThemeToggle";
 import { testimonials, faqs } from "@/data/mockData";
 
 export const Route = createFileRoute("/")({
@@ -60,6 +61,7 @@ function Landing() {
         <div className="mx-auto grid max-w-md grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
           <Logo />
           <div className="flex shrink-0 items-center gap-2">
+            <ThemeToggle />
             <button className="min-h-11 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground">
               Sign in
             </button>
