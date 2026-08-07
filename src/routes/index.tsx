@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import { Logo } from "@/components/abtalks/Logo";
+import { ThemeToggle } from "@/components/abtalks/ThemeToggle";
 import { testimonials, faqs } from "@/data/mockData";
 
 export const Route = createFileRoute("/")({
