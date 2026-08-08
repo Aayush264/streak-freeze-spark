@@ -140,7 +140,7 @@ function DayPage() {
       {day12Done ? (
         <section className="card-soft mt-6 p-6 text-center">
           <div className="animate-in fade-in zoom-in-50 duration-300 text-4xl">🎉</div>
-          <h2 className="mt-3 text-2xl font-bold text-foreground">Day 12 Completed</h2>
+          <h2 className="mt-3 text-2xl font-bold text-foreground">Day {task.day} Completed</h2>
           <p className="mt-1.5 text-sm text-muted-foreground">
             Submitted and verified. See you tomorrow at 6 AM.
           </p>
@@ -213,7 +213,7 @@ function DayPage() {
             type="submit"
             className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift transition-transform active:scale-95"
           >
-            Submit Day 12
+            Submit Day {task.day}
           </button>
         </form>
       )}
