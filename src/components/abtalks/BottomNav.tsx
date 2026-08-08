@@ -10,8 +10,10 @@ const items = [
 export function BottomNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  if (pathname === "/") return null;
+
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-0 bg-card/95 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur shadow-[0_-12px_40px_rgba(20,15,50,0.08)]">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-0 bg-card/95 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur shadow-[0_-12px_40px_rgba(20,15,50,0.08)] md:hidden">
       <ul className="mx-auto flex max-w-md items-center justify-around">
         {items.map(({ to, path, label, Icon, params }) => {
           const active = pathname === path;
@@ -21,7 +23,7 @@ export function BottomNav() {
                 to={to}
                 params={params as never}
                 aria-label={label}
-                className="grid h-11 w-11 place-items-center"
+                className="grid h-11 w-11 place-items-center transition-transform active:scale-95"
               >
                 <span
                   className={`grid h-11 w-11 place-items-center rounded-full transition-colors ${
