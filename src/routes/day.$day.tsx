@@ -20,23 +20,45 @@ export const Route = createFileRoute("/day/$day")({
   component: DayPage,
 });
 
-const task = days.find((d) => d.day === 12)!;
 const stars = { Easy: 1, Medium: 2, Hard: 3 } as const;
-const resourceIcons = [PlayCircle, BookOpen, Github];
+const resourceIcons = { video: PlayCircle, docs: BookOpen, code: Github } as const;
 
 function DayPage() {
+  const { day } = Route.useParams();
+  const dayNumber = Number(day);
+  const task = days.find((d) => d.day === dayNumber);
   const { student, day12Done, completeDay12, resetDay12 } = useAppState();
   const navigate = useNavigate();
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin] = useState("");
 
+  if (!task) {
+    return (
+      <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28 md:max-w-3xl lg:max-w-6xl">
+        <section className="card-soft mt-10 p-8 text-center">
+          <div className="text-4xl">🗓️</div>
+          <h1 className="mt-3 text-2xl font-bold text-foreground">Day {day} isn't ready yet</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            We couldn't find a challenge for that day. Head back to your dashboard for today's task.
+          </p>
+          <Link
+            to="/dashboard"
+            className="mt-6 inline-flex min-h-[52px] items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift transition-transform active:scale-95"
+          >
+            Back to Dashboard
+          </Link>
+        </section>
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28">
+    <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28 md:max-w-3xl lg:max-w-6xl">
       <header className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
         <button
           onClick={() => navigate({ to: "/dashboard" })}
           aria-label="Back to dashboard"
-          className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-soft"
+          className="grid h-11 w-11 place-items-center rounded-full bg-card shadow-soft transition-transform active:scale-95"
         >
           <ArrowLeft className="h-5 w-5 text-foreground" />
         </button>
@@ -45,7 +67,9 @@ function DayPage() {
         </span>
       </header>
 
-      <section className="card-soft mt-5 p-5">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-start lg:gap-8">
+        <div>
+      <section className="card-soft mt-5 p-5 transition-transform md:hover:-translate-y-0.5">
         <h1 className="text-2xl font-bold leading-tight text-foreground">{task.title}</h1>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <span className="flex items-center gap-1 rounded-full bg-warm-soft px-3 py-1.5">
@@ -91,15 +115,15 @@ function DayPage() {
       <section className="mt-6">
         <h2 className="text-[15px] font-bold text-foreground">Resources</h2>
         <div className="mt-3 space-y-2.5">
-          {task.resources.map((r, i) => {
-            const Icon = resourceIcons[i] ?? BookOpen;
+          {task.resources.map((r) => {
+            const Icon = resourceIcons[r.type] ?? BookOpen;
             return (
               <a
                 key={r.label}
                 href={r.url}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-[52px] items-center gap-3 rounded-full bg-card px-4 shadow-soft"
+                className="flex min-h-[52px] items-center gap-3 rounded-full bg-card px-4 shadow-soft transition-transform active:scale-95 md:hover:-translate-y-0.5"
               >
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary-soft">
                   <Icon className="h-4 w-4 text-primary" />
@@ -110,10 +134,12 @@ function DayPage() {
           })}
         </div>
       </section>
+        </div>
 
+        <div className="lg:sticky lg:top-6">
       {day12Done ? (
         <section className="card-soft mt-6 p-6 text-center">
-          <div className="text-4xl">🎉</div>
+          <div className="animate-in fade-in zoom-in-50 duration-300 text-4xl">🎉</div>
           <h2 className="mt-3 text-2xl font-bold text-foreground">Day 12 Completed</h2>
           <p className="mt-1.5 text-sm text-muted-foreground">
             Submitted and verified. See you tomorrow at 6 AM.
@@ -141,7 +167,7 @@ function DayPage() {
           </p>
           <Link
             to="/dashboard"
-            className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift"
+            className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift transition-transform active:scale-95"
           >
             Back to Dashboard
           </Link>
@@ -185,12 +211,14 @@ function DayPage() {
           />
           <button
             type="submit"
-            className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift"
+            className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift transition-transform active:scale-95"
           >
             Submit Day 12
           </button>
         </form>
       )}
+        </div>
+      </div>
     </div>
   );
 }
