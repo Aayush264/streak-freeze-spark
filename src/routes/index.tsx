@@ -227,6 +227,7 @@ function Landing() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* Streak freeze highlight */}
         <section className="pt-10">
@@ -262,6 +263,7 @@ function Landing() {
             ))}
           </ol>
         </section>
+        </Reveal>
 
         {/* Testimonials */}
         <Reveal>
@@ -311,6 +313,7 @@ function Landing() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* FAQ */}
         <Reveal>
@@ -337,6 +340,7 @@ function Landing() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         <footer className="mt-12 border-t border-border pt-6 pb-4 text-center">
           <Logo className="justify-center" />
