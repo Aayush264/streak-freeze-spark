@@ -18,7 +18,7 @@ export type Day = {
   difficulty: "Easy" | "Medium" | "Hard";
   estTime: string;
   skills: string[];
-  resources: { label: string; url: string }[];
+  resources: { label: string; url: string; type: "video" | "docs" | "code" }[];
   status: string;
 };
 

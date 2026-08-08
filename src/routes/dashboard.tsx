@@ -26,7 +26,7 @@ function Dashboard() {
   const pct = Math.round((student.completedDays / student.totalDays) * 100);
 
   return (
-    <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28">
+    <div className="mx-auto min-h-screen max-w-md px-5 pt-6 pb-28 md:max-w-3xl lg:max-w-6xl">
       <header>
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
           <p className="truncate text-xs font-semibold text-muted-foreground">
@@ -40,7 +40,7 @@ function Dashboard() {
       </header>
 
       {!student.profileComplete && (
-        <section className="card-soft mt-5 p-5">
+        <section className="card-soft mt-5 p-5 transition-transform md:hover:-translate-y-0.5">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary-soft">
               <UserPlus className="h-5 w-5 text-primary" />
@@ -57,15 +57,15 @@ function Dashboard() {
               </li>
             ))}
           </ul>
-          <button className="mt-4 min-h-11 w-full rounded-full bg-primary px-5 text-sm font-bold text-primary-foreground">
+          <button className="mt-4 min-h-11 w-full rounded-full bg-primary px-5 text-sm font-bold text-primary-foreground transition-colors transition-transform hover:bg-primary/90 active:scale-95">
             Complete profile
           </button>
         </section>
       )}
 
       {student.missedYesterday && (
-        <div className="mt-5 flex items-start gap-3 rounded-[28px] bg-primary-soft p-4">
-          <Snowflake className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <div className="mt-5 flex items-start gap-3 rounded-[28px] bg-missed-soft p-4">
+          <Snowflake className="mt-0.5 h-5 w-5 shrink-0 text-missed" />
           <p className="text-sm leading-relaxed text-foreground">
             You missed a day — one skip won't break your streak. We used a{" "}
             <span className="font-semibold">Streak Freeze</span> to keep it alive.
@@ -73,9 +73,11 @@ function Dashboard() {
         </div>
       )}
 
+      <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
+        <div>
       {/* Streak card */}
       {student.streak === 0 ? (
-        <section className="card-soft mt-5 p-6">
+        <section className="card-soft mt-5 p-6 transition-transform md:hover:-translate-y-0.5">
           <span className="grid h-14 w-14 place-items-center rounded-full bg-warm-soft">
             <Sparkles className="h-6 w-6 text-warm" />
           </span>
@@ -85,10 +87,10 @@ function Dashboard() {
           </p>
         </section>
       ) : (
-        <section className="card-soft mt-5 p-6">
+        <section className="card-soft mt-5 p-6 transition-transform md:hover:-translate-y-0.5">
           <div className="flex items-center gap-4">
             <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-warm-soft">
-              <Flame className="h-7 w-7 text-warm" />
+              <Flame className="flame-pulse h-7 w-7 text-warm" />
             </span>
             <div className="min-w-0">
               <div className="font-display text-4xl font-bold leading-none text-foreground">
@@ -119,7 +121,7 @@ function Dashboard() {
       )}
 
       {/* Today's task */}
-      <section className="card-soft mt-4 p-5">
+      <section className="card-soft mt-4 p-5 transition-transform md:hover:-translate-y-0.5">
         <div className="flex items-center gap-2">
           <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-bold text-primary-foreground">
             Day {today.day}
@@ -135,14 +137,16 @@ function Dashboard() {
         <Link
           to="/day/$day"
           params={{ day: "12" }}
-          className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift"
+          className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 font-display text-base font-bold text-primary-foreground shadow-lift transition-colors transition-transform hover:bg-primary/90 active:scale-95"
         >
           Continue Challenge <ArrowRight className="h-4 w-4" />
         </Link>
       </section>
+        </div>
 
+        <div>
       {/* Progress */}
-      <section className="card-soft mt-4 p-5">
+      <section className="card-soft mt-4 p-5 transition-transform md:hover:-translate-y-0.5 lg:mt-5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3">
           <h2 className="truncate text-[15px] font-bold text-foreground">
             {student.completedDays}/{student.totalDays} days
@@ -150,7 +154,10 @@ function Dashboard() {
           <span className="shrink-0 font-display text-sm font-bold text-primary">{pct}%</span>
         </div>
         <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-secondary">
-          <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+          <div
+            className="h-full rounded-full bg-primary transition-[width] duration-300"
+            style={{ width: `${pct}%` }}
+          />
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
           {student.xp.toLocaleString("en-IN")} XP · Level {student.level}
@@ -188,11 +195,11 @@ function Dashboard() {
       {/* Achievements */}
       <section className="mt-6">
         <h2 className="text-[15px] font-bold text-foreground">Badges</h2>
-        <div className="no-scrollbar -mx-5 mt-3 flex gap-3 overflow-x-auto px-5 pb-2">
+        <div className="no-scrollbar -mx-5 mt-3 flex gap-3 overflow-x-auto px-5 pb-2 lg:mx-0 lg:flex-wrap lg:px-0">
           {achievements.map((a) => (
             <div
               key={a.id}
-              className={`card-soft flex w-24 shrink-0 flex-col items-center gap-2 p-3 text-center ${
+              className={`card-soft flex w-24 shrink-0 flex-col items-center gap-2 p-3 text-center transition-transform md:hover:-translate-y-0.5 ${
                 a.earned ? "" : "opacity-40"
               }`}
             >
@@ -206,6 +213,8 @@ function Dashboard() {
           ))}
         </div>
       </section>
+        </div>
+      </div>
     </div>
   );
 }
