@@ -47,9 +47,9 @@ default state, so use the chip to preview each edge case manually — the
 images above were captured this way.
 
 ## Run locally
-\`\`\`sh
+```sh
 git clone <repo-url>
 cd streak-freeze-spark
 npm i
 npm run dev
-\`\`\`
+```
