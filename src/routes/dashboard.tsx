@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, Snowflake, Trophy, ArrowRight, Clock, Sparkles, UserPlus, Check } from "lucide-react";
 import { useAppState } from "@/lib/app-state";
 import { days, achievements, weeklyStrip } from "@/data/mockData";
-import { Reveal } from "@/components/abtalks/Reveal";
 import { StreakBadge } from "@/components/abtalks/StreakBadge";
 
 export const Route = createFileRoute("/dashboard")({
