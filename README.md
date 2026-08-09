@@ -11,6 +11,9 @@ night, after class.
 (`src/data/mockData.js`) — no auth, no backend, no database, per the
 challenge scope.
 
+## Walkthrough
+[Watch the demo](https://drive.google.com/file/d/1O277fbwtP0XhIMMcz_qohCkn_n8qjUxH/view?usp=drive_link)
+
 ## How to use
 1. **Land on the homepage** (`/`) — read what ABTalks is, then tap
    "Start the Challenge."
